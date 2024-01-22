@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
+import Header from '@/components/Layout/Header'
+import Footer from '@/components/Layout/Footer'
 
 export const fontSans = FontSans({
   subsets: ['latin'],
@@ -21,7 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={fontSans.variable}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <main className="flex min-h-screen flex-col justify-between font-sans">
+            <Header />
+            {children}
+            <Footer />
+          </main>
+        </Providers>
       </body>
     </html>
   )
