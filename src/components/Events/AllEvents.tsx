@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { Link as NextUILink } from '@nextui-org/react'
 
 interface EventDetailsProps {
   id: string
@@ -21,9 +22,11 @@ const AllEvents = ({ events }: HomeEventsProps) => {
   return (
     <>
       {events.map((event) => (
-        <Link
+        <NextUILink
+          as={Link}
           key={event.id}
           href={`/events/${event.id}`}
+          color="foreground"
           className="grid grid-flow-row items-center justify-center gap-4 pb-6 lg:grid-flow-col lg:justify-start"
         >
           <div className="relative flex justify-center">
@@ -51,7 +54,7 @@ const AllEvents = ({ events }: HomeEventsProps) => {
               </p>
             )}
           </div>
-        </Link>
+        </NextUILink>
       ))}
     </>
   )
