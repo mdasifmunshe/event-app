@@ -1,13 +1,13 @@
 import AllEvents from '@/components/Events/AllEvents'
 
-export async function generateStaticParams() {
+const getEvents = async () => {
   const { events_categories } = await import('../../../data/data.json')
   const events = events_categories
   return events
 }
 
 export default async function EventsPage() {
-  const categoryEvents = await generateStaticParams()
+  const categoryEvents = await getEvents()
 
   return (
     <main className="flex flex-col items-center">
