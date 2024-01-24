@@ -1,4 +1,4 @@
-import HomeEvents from '@/components/Home/HomeEvents'
+import AllEvents from '@/components/Events/AllEvents'
 
 const getEvents = async () => {
   const { events_categories } = await import('../../data/data.json')
@@ -12,7 +12,7 @@ export default async function HomePage() {
   return (
     <main className="flex flex-col items-center">
       <div className="w-full px-2 pt-4 sm:px-6 lg:w-[1024px]">
-        <HomeEvents events={categoryEvents} />
+        <AllEvents events={categoryEvents} />
       </div>
     </main>
   )
