@@ -11,13 +11,18 @@ import {
   Button,
   Link as NextUILink,
 } from '@nextui-org/react'
+import { HomeIcon, PartyPopperIcon, TicketIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
-  const menuItems = ['Home', 'Events', 'About Us', 'Log Out']
+  const menuItems = [
+    { id: 1, text: 'Home', link: '/', icon: <HomeIcon /> },
+    { id: 2, text: 'Events', link: '/events', icon: <TicketIcon /> },
+    { id: 3, text: 'About Us', link: '/aboutus', icon: <PartyPopperIcon /> },
+  ]
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -30,7 +35,12 @@ const Header = () => {
       <NavbarContent className="pr-3 sm:hidden" justify="center">
         <NavbarBrand>
           {/* Logo */}
-          <NextUILink as={Link} href="/" className="font-bold text-inherit">
+          <NextUILink
+            as={Link}
+            href="/"
+            className="font-bold text-inherit"
+            onClick={() => setIsMenuOpen(false)}
+          >
             LOGO
           </NextUILink>
         </NavbarBrand>
@@ -83,7 +93,8 @@ const Header = () => {
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <NextUILink
-              className="w-full"
+              as={Link}
+              className="flex w-full flex-row items-center justify-start gap-4 py-2 font-sans"
               color={
                 index === 2
                   ? 'warning'
@@ -91,10 +102,12 @@ const Header = () => {
                     ? 'danger'
                     : 'foreground'
               }
-              href="#"
+              href={item.link}
               size="lg"
+              onClick={() => setIsMenuOpen(false)}
             >
-              {item}
+              <div>{item.icon}</div>
+              <p>{item.text}</p>
             </NextUILink>
           </NavbarMenuItem>
         ))}
