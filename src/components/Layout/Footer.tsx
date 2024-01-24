@@ -10,7 +10,7 @@ const Footer = () => {
     {
       id: 1,
       label: 'Github Icon',
-      link: 'https://github.com/mdasifmunshe/',
+      link: 'https://github.com/mdasifmunshe/event-app',
       icon: <GithubIcon />,
     },
     {
@@ -39,11 +39,11 @@ const Footer = () => {
         ))}
       </div>
       <div>
-        <p className="xs:text-base text-xs font-semibold">
+        <p className="text-xs font-semibold xs:text-base">
           &copy;{currentYear}{' '}
           <Link
             href="https://github.com/mdasifmunshe"
-            className="xs:text-base text-sm font-semibold text-[#0070f0] transition-opacity hover:opacity-80"
+            className="text-sm font-semibold text-[#0070f0] transition-opacity hover:opacity-80 xs:text-base"
           >
             Asif Munshi
           </Link>{' '}

@@ -14,14 +14,26 @@ import {
 import { HomeIcon, PartyPopperIcon, TicketIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const pathname = usePathname()
 
   const menuItems = [
     { id: 1, text: 'Home', link: '/', icon: <HomeIcon /> },
-    { id: 2, text: 'Events', link: '/events', icon: <TicketIcon /> },
-    { id: 3, text: 'About Us', link: '/aboutus', icon: <PartyPopperIcon /> },
+    {
+      id: 2,
+      text: 'Events',
+      link: '/events',
+      icon: <TicketIcon />,
+    },
+    {
+      id: 3,
+      text: 'About Us',
+      link: '/aboutus',
+      icon: <PartyPopperIcon />,
+    },
   ]
 
   return (
@@ -53,21 +65,17 @@ const Header = () => {
             LOGO
           </NextUILink>
         </NavbarBrand>
-        <NavbarItem isActive>
-          <NextUILink as={Link} href="/" aria-current="page">
-            Home
-          </NextUILink>
-        </NavbarItem>
-        <NavbarItem>
-          <NextUILink as={Link} color="foreground" href="/events">
-            Events
-          </NextUILink>
-        </NavbarItem>
-        <NavbarItem>
-          <NextUILink as={Link} color="foreground" href="/aboutus">
-            About Us
-          </NextUILink>
-        </NavbarItem>
+        {menuItems.map((item) => (
+          <NavbarItem isActive key={item.id}>
+            <NextUILink
+              as={Link}
+              color={pathname === item.link ? 'primary' : 'foreground'}
+              href={item.link}
+            >
+              {item.text}
+            </NextUILink>
+          </NavbarItem>
+        ))}
       </NavbarContent>
 
       <NavbarContent justify="end">
