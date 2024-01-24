@@ -5,7 +5,7 @@ import { Providers } from './providers'
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
 
-export const fontSans = FontSans({
+const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans',
 })
