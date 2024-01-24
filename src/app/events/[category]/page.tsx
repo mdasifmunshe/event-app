@@ -1,27 +1,30 @@
-'use client'
+import CategoryEvents from '@/components/Events/CategoryEvents'
 
-import { Link as NextUILink } from '@nextui-org/react'
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
+export const dynamicParams = false
 
-export default function CategoryPage() {
-  const params = useParams<{ category: string }>()
-  const city = params.category
+export async function generateStaticParams() {
+  const { events_categories } = await import('../../../../data/data.json')
+  return events_categories.map((event) => ({
+    category: event.id,
+  }))
+}
+
+async function getEvent(params: any) {
+  const id = params.category
+
+  const { allEvents } = await import('../../../../data/data.json')
+  const event = allEvents.filter((event) => event.city === id)
+
+  return event
+}
+
+export default async function CategoryPage({ params }: any) {
+  const eventsByCity = await getEvent(params)
 
   return (
     <main className="flex flex-col items-center">
       <div className="w-full px-2 sm:px-6 lg:w-[1024px]">
-        <div className="flex flex-col">
-          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl [&(:first-child)]:capitalize">
-            {city} Events
-          </h1>
-          <NextUILink as={Link} href={`/events/dhaka/${1}`} color="foreground">
-            <p className="leading-7 [&:not(:first-child)]:mt-6">Event 1</p>
-          </NextUILink>
-          <NextUILink as={Link} href={`/events/dhaka/${2}`} color="foreground">
-            <p className="leading-7 [&:not(:first-child)]:mt-6">Event 2</p>
-          </NextUILink>
-        </div>
+        <CategoryEvents events={eventsByCity} />
       </div>
     </main>
   )
